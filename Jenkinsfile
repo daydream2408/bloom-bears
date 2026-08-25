@@ -10,22 +10,32 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                echo 'Installing Backend dependencies...'
-                dir('backend') {
-                    sh 'npm install'
-                }
-                echo 'Installing Frontend dependencies...'
-                dir('frontend') {
-                    sh 'npm install'
+                script {
+                    if (isUnix()) {
+                        echo 'Installing Backend dependencies...'
+                        dir('backend') { sh 'npm install' }
+                        echo 'Installing Frontend dependencies...'
+                        dir('frontend') { sh 'npm install' }
+                    } else {
+                        echo 'Installing Backend dependencies (Windows)...'
+                        dir('backend') { bat 'npm install' }
+                        echo 'Installing Frontend dependencies (Windows)...'
+                        dir('frontend') { bat 'npm install' }
+                    }
                 }
             }
         }
 
         stage('Build Storefront') {
             steps {
-                echo 'Building React production assets...'
-                dir('frontend') {
-                    sh 'npm run build'
+                script {
+                    if (isUnix()) {
+                        echo 'Building React production assets...'
+                        dir('frontend') { sh 'npm run build' }
+                    } else {
+                        echo 'Building React production assets (Windows)...'
+                        dir('frontend') { bat 'npm run build' }
+                    }
                 }
             }
         }
@@ -33,14 +43,12 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running pipeline tests...'
-                // sh 'npm test'
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying application...'
-                // Add custom deployment scripts (e.g. pm2 reload, docker-compose build)
             }
         }
     }
