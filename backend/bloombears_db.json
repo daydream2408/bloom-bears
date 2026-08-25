@@ -1,0 +1,205 @@
+{
+  "products": [
+    {
+      "id": "cute-bunny",
+      "name": "Cute Bunny",
+      "price": 450,
+      "image": "/products/cute-bunny.png",
+      "description": "Ultra-soft bunny plush, perfect gift companion.",
+      "active": 1,
+      "category": "Bunnies & Rabbits",
+      "images": [
+        "/products/cute-bunny.png"
+      ]
+    },
+    {
+      "id": "cute-star",
+      "name": "Cute Star",
+      "price": 300,
+      "image": "/products/cute-star.png",
+      "description": "A cheerful star-shaped plush toy.",
+      "active": 1,
+      "category": "Plush Friends",
+      "images": [
+        "/products/cute-star.png"
+      ]
+    },
+    {
+      "id": "cute-rabbit-1",
+      "name": "Cute Rabbit",
+      "price": 500,
+      "image": "/products/cute-rabbit-1.png",
+      "description": "Premium rabbit plush with soft fur.",
+      "active": 1,
+      "category": "Bunnies & Rabbits",
+      "images": [
+        "/products/cute-rabbit-1.png"
+      ]
+    },
+    {
+      "id": "cute-rabbit",
+      "name": "Cute Red Rabbit",
+      "price": 300,
+      "image": "/products/cute-rabbit.png",
+      "description": "A vibrant red rabbit plush.",
+      "active": 1,
+      "category": "Bunnies & Rabbits",
+      "images": [
+        "/products/cute-rabbit.png"
+      ]
+    },
+    {
+      "id": "cute-avacado",
+      "name": "Cute Avocado",
+      "price": 500,
+      "image": "/products/cute-avacado.png",
+      "description": "Fun avocado-shaped plush toy.",
+      "active": 1,
+      "category": "Plush Friends",
+      "images": [
+        "/products/cute-avacado.png"
+      ]
+    },
+    {
+      "id": "cute-banana-with-a-baby",
+      "name": "Cute Banana with a Baby",
+      "price": 550,
+      "image": "/products/cute-banana.png",
+      "description": "A playful banana plush with a tiny companion.",
+      "active": 1,
+      "category": "Plush Friends",
+      "images": [
+        "/products/cute-banana.png"
+      ]
+    },
+    {
+      "id": "cute-elephant",
+      "name": "Cute Elephant",
+      "price": 350,
+      "image": "/products/cute-elephant.png",
+      "description": "Adorable elephant plush, soft and huggable.",
+      "active": 1,
+      "category": "Plush Friends",
+      "images": [
+        "/products/cute-elephant.png"
+      ]
+    },
+    {
+      "id": "cute-holiday-teddy",
+      "name": "Cute Holiday Teddy",
+      "price": 750,
+      "image": "/uploads/1787646625996-674806386.jpg",
+      "description": "A beautiful holiday bear with a pink bow.",
+      "category": "Holiday Specials",
+      "active": 1,
+      "images": [
+        "/uploads/1787646625996-674806386.jpg"
+      ]
+    },
+    {
+      "id": "l;,;",
+      "name": "l;;l",
+      "price": 90,
+      "image": "/uploads/1787646990575-886349292.png",
+      "description": "",
+      "category": ".p[[p.[p",
+      "active": 1,
+      "images": [
+        "/uploads/1787646990575-886349292.png"
+      ]
+    }
+  ],
+  "orders": [
+    {
+      "orderId": "mock_order_1787639152510",
+      "items": [
+        {
+          "id": "cute-bunny",
+          "name": "Cute Bunny",
+          "price": 450,
+          "image": "/products/cute-bunny.png",
+          "qty": 1
+        }
+      ],
+      "customer": {
+        "name": "Test Buyer",
+        "email": "test@buyer.com",
+        "phone": "7374015643",
+        "address": "Jaipur, Rajasthan"
+      },
+      "status": "paid",
+      "createdAt": "2026-08-25T06:25:52.510Z",
+      "paymentId": "pay_mock_1787639152521"
+    },
+    {
+      "orderId": "mock_order_1787645468868",
+      "items": [
+        {
+          "id": "cute-bunny",
+          "name": "Cute Bunny",
+          "price": 450,
+          "image": "/products/cute-bunny.png",
+          "qty": 3
+        },
+        {
+          "id": "cute-rabbit-1",
+          "name": "Cute Rabbit",
+          "price": 500,
+          "image": "/products/cute-rabbit-1.png",
+          "qty": 1
+        }
+      ],
+      "customer": {
+        "name": "John Doe",
+        "email": "",
+        "phone": "+91 9876543210",
+        "address": "123 Pink City St, Jaipur"
+      },
+      "status": "shipped",
+      "createdAt": "2026-08-25T08:11:08.868Z",
+      "paymentId": "pay_mock_1787645468878"
+    },
+    {
+      "orderId": "mock_order_1787647119518",
+      "items": [
+        {
+          "id": "cute-star",
+          "name": "Cute Star",
+          "price": 300,
+          "image": "/products/cute-star.png",
+          "qty": 3
+        }
+      ],
+      "customer": {
+        "name": "dsdw",
+        "email": "test@buyer.com",
+        "phone": "9988776655",
+        "address": "dwd"
+      },
+      "status": "paid",
+      "createdAt": "2026-08-25T08:38:39.518Z",
+      "paymentId": "pay_mock_1787647119521"
+    },
+    {
+      "orderId": "mock_order_1787680451463",
+      "items": [
+        {
+          "id": "cute-star",
+          "name": "Cute Star",
+          "price": 300,
+          "image": "/products/cute-star.png",
+          "qty": 1
+        }
+      ],
+      "customer": {
+        "name": "buyhy",
+        "email": "test@buyer.com",
+        "phone": "7374015643",
+        "address": " kjnknlkm"
+      },
+      "status": "paid",
+      "createdAt": "2026-08-25T17:54:11.463Z",
+      "paymentId": "pay_mock_1787680451469"
+    }
+  ]
+}
