@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { createOrder, verifyPayment } from '../api';
 
 function loadRazorpayScript() {
   return new Promise((resolve) => {
@@ -38,26 +39,16 @@ export default function Checkout() {
       if (!scriptOk) throw new Error('Razorpay SDK failed to load. Check your connection.');
 
       // Ask our backend to create an order (amount in paise)
-      const orderRes = await fetch('/api/create-order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: Math.round(total * 100), items, customer: form })
-      });
-      if (!orderRes.ok) throw new Error('Could not create order. Try again.');
-      const order = await orderRes.json();
+      const order = await createOrder(Math.round(total * 100), items, form);
 
       if (order.isMock) {
-        const verifyRes = await fetch('/api/verify-payment', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            razorpay_order_id: order.id,
-            razorpay_payment_id: "pay_mock_" + Date.now(),
-            razorpay_signature: "signature_mock",
-            isMock: true,
-            items,
-            customer: form
-          })
+        const verifyRes = await verifyPayment({
+          razorpay_order_id: order.id,
+          razorpay_payment_id: "pay_mock_" + Date.now(),
+          razorpay_signature: "signature_mock",
+          isMock: true,
+          items,
+          customer: form
         });
         if (verifyRes.ok) {
           clearCart();
@@ -77,11 +68,7 @@ export default function Checkout() {
         order_id: order.id,
         handler: async function (response) {
           // Verify payment on backend
-          const verifyRes = await fetch('/api/verify-payment', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...response, items, customer: form })
-          });
+          const verifyRes = await verifyPayment({ ...response, items, customer: form });
           if (verifyRes.ok) {
             clearCart();
             navigate('/order-success');

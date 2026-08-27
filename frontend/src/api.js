@@ -1,4 +1,4 @@
-const API_BASE = '/api';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
 
 export async function fetchProducts() {
   const res = await fetch(`${API_BASE}/products`);
@@ -95,3 +95,23 @@ export async function adminUploadImages(files) {
   if (!res.ok) throw new Error('Image upload failed');
   return res.json(); // { urls }
 }
+
+export async function createOrder(amount, items, customer) {
+  const res = await fetch(`${API_BASE}/create-order`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ amount, items, customer })
+  });
+  if (!res.ok) throw new Error('Could not create order. Try again.');
+  return res.json();
+}
+
+export async function verifyPayment(payload) {
+  const res = await fetch(`${API_BASE}/verify-payment`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  return res;
+}
+
