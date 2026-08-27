@@ -3,6 +3,10 @@ import { useCart } from '../context/CartContext';
 
 export default function Navbar() {
   const { count } = useCart();
+  const userToken = localStorage.getItem('bloombears_user_token');
+  const userName = localStorage.getItem('bloombears_user_name');
+  const userFirstName = userName ? userName.split(' ')[0] : '';
+
   return (
     <nav className="navbar">
       <div className="container nav-container">
@@ -30,11 +34,12 @@ export default function Navbar() {
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
           </button>
-          <Link to="/admin" className="nav-icon-btn" aria-label="Account">
+          <Link to={userToken ? "/profile" : "/login"} className="nav-icon-btn" aria-label="Account" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
+            {userFirstName && <span style={{ fontSize: '0.88rem', fontWeight: 600, fontFamily: 'var(--font-body)', color: 'var(--text-wine)' }}>{userFirstName}</span>}
           </Link>
           <Link to="/cart" className="nav-icon-btn cart-btn">
             <svg className="cart-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

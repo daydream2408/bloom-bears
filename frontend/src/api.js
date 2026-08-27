@@ -115,3 +115,41 @@ export async function verifyPayment(payload) {
   return res;
 }
 
+export async function userRegister(name, email, password) {
+  const res = await fetch(`${API_BASE}/user/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, password })
+  });
+  if (!res.ok) {
+    const data = await res.json();
+    throw new Error(data.error || 'Failed to register');
+  }
+  return res.json();
+}
+
+export async function userLogin(email, password) {
+  const res = await fetch(`${API_BASE}/user/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  });
+  if (!res.ok) {
+    const data = await res.json();
+    throw new Error(data.error || 'Failed to log in');
+  }
+  return res.json();
+}
+
+export async function fetchUserOrders() {
+  const token = localStorage.getItem('bloombears_user_token');
+  const res = await fetch(`${API_BASE}/user/orders`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+  if (!res.ok) throw new Error('Failed to load user orders');
+  return res.json();
+}
+
+

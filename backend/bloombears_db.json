@@ -264,5 +264,14 @@
       "createdAt": "2026-08-27T17:17:35.251Z",
       "paymentId": "pay_TUsOj3sOHCBz5Y"
     }
+  ],
+  "users": [
+    {
+      "id": "user_1787853461120",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+      "createdAt": "2026-08-27T17:57:41.120Z"
+    }
   ]
 }

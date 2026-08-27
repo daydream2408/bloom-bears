@@ -3,8 +3,9 @@ import cors from 'cors';
 import crypto from 'crypto';
 import Razorpay from 'razorpay';
 import dotenv from 'dotenv';
-import db, { orders, saveOrders } from './db.js';
+import db, { orders, saveOrders, users, saveUsers } from './db.js';
 import { login, requireAdmin } from './auth.js';
+import jwt from 'jsonwebtoken';
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -48,6 +49,76 @@ const razorpay = new Razorpay({
 });
 
 // orders array is now loaded and exported from db.js
+
+const USER_SECRET = process.env.USER_JWT_SECRET || 'user_jwt_secret_bloombears_key';
+
+// User auth middleware
+function requireUser(req, res, next) {
+  const header = req.headers.authorization || '';
+  const token = header.replace('Bearer ', '');
+  try {
+    const decoded = jwt.verify(token, USER_SECRET);
+    req.user = decoded;
+    next();
+  } catch {
+    res.status(401).json({ error: 'Unauthorized user access' });
+  }
+}
+
+/* ---------- User Authentication ---------- */
+
+app.post('/api/user/register', (req, res) => {
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) {
+    return res.status(400).json({ error: 'Name, email, and password are required' });
+  }
+  const cleanEmail = email.trim().toLowerCase();
+  if (users.find(u => u.email === cleanEmail)) {
+    return res.status(400).json({ error: 'User with this email already exists' });
+  }
+
+  const passwordHash = crypto.createHash('sha256').update(password).digest('hex');
+
+  const newUser = {
+    id: `user_${Date.now()}`,
+    name: name.trim(),
+    email: cleanEmail,
+    passwordHash,
+    createdAt: new Date().toISOString()
+  };
+
+  users.push(newUser);
+  saveUsers();
+
+  const token = jwt.sign({ id: newUser.id, email: newUser.email, name: newUser.name }, USER_SECRET, { expiresIn: '7d' });
+  res.json({ token, user: { id: newUser.id, name: newUser.name, email: newUser.email } });
+});
+
+app.post('/api/user/login', (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Email and password are required' });
+  }
+  const cleanEmail = email.trim().toLowerCase();
+  const user = users.find(u => u.email === cleanEmail);
+  if (!user) {
+    return res.status(401).json({ error: 'Invalid email or password' });
+  }
+
+  const passwordHash = crypto.createHash('sha256').update(password).digest('hex');
+  if (user.passwordHash !== passwordHash) {
+    return res.status(401).json({ error: 'Invalid email or password' });
+  }
+
+  const token = jwt.sign({ id: user.id, email: user.email, name: user.name }, USER_SECRET, { expiresIn: '7d' });
+  res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
+});
+
+app.get('/api/user/orders', requireUser, (req, res) => {
+  const userEmail = req.user.email;
+  const userOrders = orders.filter(o => o.customer && o.customer.email && o.customer.email.trim().toLowerCase() === userEmail);
+  res.json(userOrders);
+});
 
 /* ---------- Public product routes ---------- */
 

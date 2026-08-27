@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { createOrder, verifyPayment } from '../api';
@@ -20,6 +20,16 @@ export default function Checkout() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', address: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const savedName = localStorage.getItem('bloombears_user_name') || '';
+    const savedEmail = localStorage.getItem('bloombears_user_email') || '';
+    setForm(prev => ({
+      ...prev,
+      name: prev.name || savedName,
+      email: prev.email || savedEmail
+    }));
+  }, []);
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });

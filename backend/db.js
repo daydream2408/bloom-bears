@@ -8,14 +8,16 @@ const DB_FILE = path.join(__dirname, 'bloombears_db.json');
 // Helper to load data from JSON
 function loadData() {
   if (!fs.existsSync(DB_FILE)) {
-    return { products: [], orders: [] };
+    return { products: [], orders: [], users: [] };
   }
   try {
     const raw = fs.readFileSync(DB_FILE, 'utf8');
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    if (!parsed.users) parsed.users = [];
+    return parsed;
   } catch (err) {
     console.error('Error reading JSON DB file, returning empty structure:', err);
-    return { products: [], orders: [] };
+    return { products: [], orders: [], users: [] };
   }
 }
 
@@ -61,6 +63,12 @@ if (data.products.length === 0) {
 // Expose orders reference and saveOrders function
 export const orders = data.orders;
 export function saveOrders() {
+  saveData(data);
+}
+
+// Expose users reference and saveUsers function
+export const users = data.users;
+export function saveUsers() {
   saveData(data);
 }
 

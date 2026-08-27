@@ -954,3 +954,64 @@ footer {
   align-items: center;
 }
 
+/* User Auth & Profile CSS */
+.auth-card {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.auth-tab:hover {
+  color: var(--pink-dark) !important;
+  opacity: 0.9;
+}
+
+.profile-header-card {
+  box-shadow: var(--shadow-sm);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.profile-order-card:hover {
+  box-shadow: var(--shadow-md) !important;
+  transform: translateY(-2px);
+  border-color: var(--pink-soft) !important;
+}
+
+.empty-orders-card {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Badges override/extension for states */
+.badge-created {
+  background-color: #ffe0b2;
+  color: #e65100;
+}
+
+.badge-shipped {
+  background-color: #e1f5fe;
+  color: #01579b;
+}
+
+.badge-delivered {
+  background-color: #e8f5e9;
+  color: #1b5e20;
+}
+
+@media (max-width: 768px) {
+  .order-details-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  .order-shipping-col {
+    border-left: none !important;
+    padding-left: 0 !important;
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+  }
+  
+  .profile-header-card {
+    padding: 20px !important;
+    text-align: center;
+    justify-content: center !important;
+  }
+}
+
+
