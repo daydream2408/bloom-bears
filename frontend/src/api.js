@@ -1,4 +1,7 @@
-const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
+let API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
+if (API_BASE !== '/api' && !API_BASE.endsWith('/api') && !API_BASE.endsWith('/api/')) {
+  API_BASE = API_BASE.endsWith('/') ? `${API_BASE}api` : `${API_BASE}/api`;
+}
 
 async function handleResponse(res) {
   const contentType = res.headers.get('content-type');
