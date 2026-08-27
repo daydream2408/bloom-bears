@@ -926,3 +926,31 @@ footer {
   border-color: var(--pink-dark) !important;
   box-shadow: var(--shadow-sm);
 }
+
+/* Payment Method Selection Styling */
+.payment-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  background-color: var(--white);
+  transition: var(--transition);
+  margin-top: 12px;
+}
+
+.payment-card.active {
+  border-color: var(--pink-dark);
+  background-color: var(--pink-soft);
+  box-shadow: var(--shadow-sm);
+}
+
+.payment-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.payment-card-title-container {
+  display: flex;
+  align-items: center;
+}
+

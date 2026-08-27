@@ -27,8 +27,8 @@ export default function Checkout() {
   async function handlePay(e) {
     e.preventDefault();
     setError('');
-    if (!form.name || !form.phone || !form.address) {
-      setError('Please fill name, phone, and address.');
+    if (!form.name.trim() || !form.phone.trim() || !form.address.trim()) {
+      setError('Please fill out all mandatory fields: Name, Phone, and Delivery Address.');
       return;
     }
     setLoading(true);
@@ -114,7 +114,7 @@ export default function Checkout() {
           <h3>Delivery Information</h3>
           <form className="checkout-form" onSubmit={handlePay}>
             <div className="form-group">
-              <label>Full Name</label>
+              <label>Full Name <span style={{ color: 'crimson' }}>*</span></label>
               <input name="name" placeholder="E.g. Jane Doe" value={form.name} onChange={handleChange} required />
             </div>
             
@@ -124,13 +124,35 @@ export default function Checkout() {
             </div>
             
             <div className="form-group">
-              <label>Phone Number</label>
+              <label>Phone Number <span style={{ color: 'crimson' }}>*</span></label>
               <input name="phone" placeholder="E.g. +91 99999 88888" value={form.phone} onChange={handleChange} required />
             </div>
             
             <div className="form-group">
-              <label>Delivery Address</label>
+              <label>Delivery Address <span style={{ color: 'crimson' }}>*</span></label>
               <textarea name="address" placeholder="Enter complete home or office address in Jaipur" rows="3" value={form.address} onChange={handleChange} required />
+            </div>
+
+            <div className="payment-method-section" style={{ marginTop: '24px', marginBottom: '16px' }}>
+              <label style={{ display: 'block', marginBottom: '12px', fontWeight: 600, fontSize: '0.95rem' }}>Payment Method</label>
+              <div className="payment-card active">
+                <div className="payment-card-header">
+                  <div className="payment-card-title-container">
+                    <input type="radio" checked readOnly style={{ accentColor: 'var(--pink-dark)', cursor: 'pointer' }} />
+                    <span className="payment-card-title" style={{ marginLeft: '10px', fontWeight: 600 }}>Pay Online securely via Razorpay</span>
+                  </div>
+                  <span className="badge badge-paid" style={{ fontSize: '0.75rem', padding: '3px 8px' }}>Secured</span>
+                </div>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-light)', marginTop: '8px', marginLeft: '24px' }}>
+                  Supports UPI, Google Pay, PhonePe, Credit/Debit Cards, Net Banking, and Wallets.
+                </p>
+                <div className="payment-icons" style={{ display: 'flex', gap: '8px', marginTop: '12px', marginLeft: '24px', flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: '0.75rem', background: 'var(--pink-soft)', padding: '2px 8px', borderRadius: '4px', fontWeight: 600, color: 'var(--pink-dark)' }}>UPI / GPay</span>
+                  <span style={{ fontSize: '0.75rem', background: 'var(--pink-soft)', padding: '2px 8px', borderRadius: '4px', fontWeight: 600, color: 'var(--pink-dark)' }}>Cards (Visa/Mastercard/RuPay)</span>
+                  <span style={{ fontSize: '0.75rem', background: 'var(--pink-soft)', padding: '2px 8px', borderRadius: '4px', fontWeight: 600, color: 'var(--pink-dark)' }}>Net Banking</span>
+                  <span style={{ fontSize: '0.75rem', background: 'var(--pink-soft)', padding: '2px 8px', borderRadius: '4px', fontWeight: 600, color: 'var(--pink-dark)' }}>Wallets</span>
+                </div>
+              </div>
             </div>
 
             {error && <p style={{ color: 'crimson', fontSize: '0.9rem', fontWeight: 600 }}>{error}</p>}
