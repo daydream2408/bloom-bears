@@ -1,5 +1,23 @@
 const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
 
+async function handleResponse(res) {
+  const contentType = res.headers.get('content-type');
+  const isJson = contentType && contentType.includes('application/json');
+
+  if (!res.ok) {
+    if (isJson) {
+      const errData = await res.json();
+      throw new Error(errData.error || `Request failed with status ${res.status}`);
+    }
+    throw new Error(`Server returned HTML error (${res.status}). Make sure VITE_API_BASE_URL is set correctly in Vercel and points to the Render backend.`);
+  }
+
+  if (isJson) {
+    return res.json();
+  }
+  throw new Error('Server did not return JSON format. Check your API configuration.');
+}
+
 export async function fetchProducts() {
   const res = await fetch(`${API_BASE}/products`);
   if (!res.ok) throw new Error('Failed to load products');
@@ -20,8 +38,7 @@ export async function adminLogin(password) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ password })
   });
-  if (!res.ok) throw new Error('Wrong password');
-  return res.json(); // { token }
+  return handleResponse(res);
 }
 
 function authHeaders() {
@@ -102,8 +119,7 @@ export async function createOrder(amount, items, customer) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ amount, items, customer })
   });
-  if (!res.ok) throw new Error('Could not create order. Try again.');
-  return res.json();
+  return handleResponse(res);
 }
 
 export async function verifyPayment(payload) {
@@ -121,11 +137,7 @@ export async function userRegister(name, email, password) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name, email, password })
   });
-  if (!res.ok) {
-    const data = await res.json();
-    throw new Error(data.error || 'Failed to register');
-  }
-  return res.json();
+  return handleResponse(res);
 }
 
 export async function userLogin(email, password) {
@@ -134,11 +146,7 @@ export async function userLogin(email, password) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password })
   });
-  if (!res.ok) {
-    const data = await res.json();
-    throw new Error(data.error || 'Failed to log in');
-  }
-  return res.json();
+  return handleResponse(res);
 }
 
 export async function fetchUserOrders() {
@@ -148,8 +156,8 @@ export async function fetchUserOrders() {
       Authorization: `Bearer ${token}`
     }
   });
-  if (!res.ok) throw new Error('Failed to load user orders');
-  return res.json();
+  return handleResponse(res);
 }
+
 
 
