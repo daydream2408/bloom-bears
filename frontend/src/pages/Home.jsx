@@ -209,23 +209,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={{
-        marginTop: '80px',
-        borderTop: '1px solid var(--line)',
-        paddingTop: '30px',
-        textAlign: 'center'
-      }}>
-        <p style={{
-          color: 'var(--text-wine)',
-          fontSize: '0.85rem',
-          opacity: 0.8,
-          margin: 0
-        }}>
-          © {new Date().getFullYear()} BloomBears Store. Powered by raw code.
-        </p>
-      </footer>
-
     </div>
   );
 }
