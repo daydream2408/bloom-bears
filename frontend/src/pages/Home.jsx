@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchProducts } from '../api';
+import { fetchProducts, getImageUrl } from '../api';
 import { useCart } from '../context/CartContext';
 
 export default function Home() {
@@ -82,7 +82,7 @@ export default function Home() {
               }}>
                 <Link to={`/product/${p.id}`}>
                   <img
-                    src={p.image}
+                    src={getImageUrl(p.image)}
                     alt={p.name}
                     style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
                     className="prod-img"

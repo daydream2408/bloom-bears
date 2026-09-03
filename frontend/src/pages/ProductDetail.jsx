@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchProduct } from '../api';
+import { fetchProduct, getImageUrl } from '../api';
 import { useCart } from '../context/CartContext';
 
 export default function ProductDetail() {
@@ -47,14 +47,14 @@ export default function ProductDetail() {
       <div className="product-detail">
         <div className="product-image-gallery" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div className="product-image-container">
-            <img src={activeImage} alt={product.name} onError={(e) => e.target.style.opacity = 0.3} style={{ transition: 'all 0.3s ease' }} />
+            <img src={getImageUrl(activeImage)} alt={product.name} onError={(e) => e.target.style.opacity = 0.3} style={{ transition: 'all 0.3s ease' }} />
           </div>
           {imagesList.length > 1 && (
             <div className="gallery-thumbnails" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
               {imagesList.map((img, idx) => (
                 <img
                   key={idx}
-                  src={img}
+                  src={getImageUrl(img)}
                   alt={`${product.name} preview ${idx + 1}`}
                   onClick={() => setActiveImage(img)}
                   style={{

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { getImageUrl } from '../api';
 
 export default function Cart() {
   const { items, updateQty, removeItem, total } = useCart();
@@ -36,7 +37,7 @@ export default function Cart() {
               <tr key={item.id}>
                 <td>
                   <div className="cart-product">
-                    <img className="cart-product-img" src={item.image} alt={item.name} />
+                    <img className="cart-product-img" src={getImageUrl(item.image)} alt={item.name} />
                     <div className="cart-product-info">
                       <h4>{item.name}</h4>
                       <p style={{ color: 'var(--muted)', fontSize: '0.85rem', marginTop: 4 }}>ID: {item.id}</p>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { fetchUserOrders } from '../api';
+import { fetchUserOrders, getImageUrl } from '../api';
 
 export default function Profile() {
   const [orders, setOrders] = useState([]);
@@ -119,7 +119,7 @@ export default function Profile() {
                         <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: idx < order.items.length - 1 ? '1px dashed var(--line)' : 'none', paddingBottom: '8px' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                             <img 
-                              src={item.image} 
+                              src={getImageUrl(item.image)} 
                               alt={item.name} 
                               style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '8px', backgroundColor: 'var(--pink-soft)', border: '1px solid var(--line)' }}
                               onError={(e) => e.target.style.opacity = 0.3}

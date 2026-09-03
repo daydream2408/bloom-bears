@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  adminFetchProducts, adminCreateProduct, adminUpdateProduct, adminDeleteProduct, adminFetchOrders, adminUpdateOrderStatus, adminUploadImages
+  adminFetchProducts, adminCreateProduct, adminUpdateProduct, adminDeleteProduct, adminFetchOrders, adminUpdateOrderStatus, adminUploadImages, getImageUrl
 } from '../api';
 
 const emptyForm = { id: '', name: '', price: '', image: '', description: '', category: '', images: [] };
@@ -247,7 +247,7 @@ export default function AdminDashboard() {
                       {form.images.map((img, idx) => (
                         <div key={idx} style={{ position: 'relative' }}>
                           <img
-                            src={img}
+                            src={getImageUrl(img)}
                             alt="Saved Preview"
                             style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--line)' }}
                           />
@@ -293,7 +293,7 @@ export default function AdminDashboard() {
                   <tr key={p.id}>
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                        <img src={p.image} alt={p.name} style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px', backgroundColor: 'var(--pink-soft)' }} onError={(e) => e.target.style.opacity = 0.3} />
+                        <img src={getImageUrl(p.image)} alt={p.name} style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px', backgroundColor: 'var(--pink-soft)' }} onError={(e) => e.target.style.opacity = 0.3} />
                         <div>
                           <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{p.name}</div>
                           <div style={{ color: 'var(--muted)', fontSize: '0.75rem' }}>Slug: {p.id} | Category: {p.category}</div>

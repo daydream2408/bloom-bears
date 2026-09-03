@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import { createOrder, verifyPayment } from '../api';
+import { createOrder, verifyPayment, getImageUrl } from '../api';
 
 function loadRazorpayScript() {
   return new Promise((resolve) => {
@@ -167,7 +167,7 @@ export default function Checkout() {
             {items.map(item => (
               <div key={item.id} className="checkout-item">
                 <div className="checkout-item-details">
-                  <img className="checkout-item-img" src={item.image} alt={item.name} />
+                  <img className="checkout-item-img" src={getImageUrl(item.image)} alt={item.name} />
                   <div>
                     <div className="checkout-item-name">{item.name}</div>
                     <div className="checkout-item-qty">Qty: {item.qty}</div>

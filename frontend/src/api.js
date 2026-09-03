@@ -3,6 +3,23 @@ if (API_BASE !== '/api' && !API_BASE.endsWith('/api') && !API_BASE.endsWith('/ap
   API_BASE = API_BASE.endsWith('/') ? `${API_BASE}api` : `${API_BASE}/api`;
 }
 
+export function getImageUrl(path) {
+  if (!path || typeof path !== 'string') return '';
+  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) {
+    return path;
+  }
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  if (cleanPath.startsWith('/uploads/')) {
+    const rawBase = import.meta.env.VITE_API_BASE_URL;
+    if (rawBase) {
+      const backendUrl = rawBase.replace(/\/api\/?$/, '').replace(/\/$/, '');
+      return `${backendUrl}${cleanPath}`;
+    }
+    return cleanPath;
+  }
+  return cleanPath;
+}
+
 async function handleResponse(res) {
   const contentType = res.headers.get('content-type');
   const isJson = contentType && contentType.includes('application/json');
