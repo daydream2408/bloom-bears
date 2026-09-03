@@ -14,6 +14,8 @@ export default function AdminDashboard() {
   const [imageFiles, setImageFiles] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
@@ -81,6 +83,8 @@ export default function AdminDashboard() {
   async function handleSubmit(e) {
     e.preventDefault();
     setError('');
+    setSuccessMessage('');
+    setSubmitting(true);
     try {
       let uploadedUrls = [];
       if (imageFiles.length > 0) {
@@ -104,22 +108,34 @@ export default function AdminDashboard() {
         images: combinedImages
       };
       
-      if (editingId) {
+      const isEdit = !!editingId;
+      if (isEdit) {
         await adminUpdateProduct(editingId, payload);
+        setSuccessMessage(`✓ Changes saved successfully for "${payload.name}"!`);
       } else {
         await adminCreateProduct(payload);
+        setSuccessMessage(`✓ Product "${payload.name}" created successfully!`);
       }
       resetForm();
       loadProducts();
+      setTimeout(() => setSuccessMessage(''), 4500);
     } catch (err) {
       setError(err.message);
+    } finally {
+      setSubmitting(false);
     }
   }
 
   async function handleDelete(id) {
     if (!confirm('Delete this product?')) return;
-    await adminDeleteProduct(id);
-    loadProducts();
+    try {
+      await adminDeleteProduct(id);
+      setSuccessMessage('✓ Product deleted successfully.');
+      setTimeout(() => setSuccessMessage(''), 3500);
+      loadProducts();
+    } catch (err) {
+      setError(err.message);
+    }
   }
 
   async function handleStatusChange(orderId, status) {
@@ -269,10 +285,70 @@ export default function AdminDashboard() {
                 <textarea name="description" placeholder="Describe materials, size, wraps..." rows="2" value={form.description}
                   onChange={handleChange} />
               </div>
-              {error && <p style={{ color: 'crimson', fontSize: '0.85rem', fontWeight: 600 }}>{error}</p>}
+              {error && (
+                <div style={{
+                  backgroundColor: '#fef2f2',
+                  color: '#991b1b',
+                  padding: '10px 14px',
+                  borderRadius: '8px',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  marginBottom: '12px',
+                  border: '1px solid #fecaca',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}>
+                  <span>⚠️</span>
+                  <span>{error}</span>
+                </div>
+              )}
+              {successMessage && (
+                <div style={{
+                  backgroundColor: '#f0fdf4',
+                  color: '#166534',
+                  padding: '10px 14px',
+                  borderRadius: '8px',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  marginBottom: '12px',
+                  border: '1px solid #bbf7d0',
+                  boxShadow: '0 2px 8px rgba(22, 101, 52, 0.08)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  animation: 'fadeIn 0.3s ease'
+                }}>
+                  <span style={{ fontSize: '1.1rem' }}>🎉</span>
+                  <span>{successMessage}</span>
+                </div>
+              )}
               <div style={{ display: 'flex', gap: 10, marginTop: '8px' }}>
-                <button className="btn" type="submit" style={{ flex: 1, fontSize: '0.9rem', padding: '10px' }}>{editingId ? 'Save Changes' : 'Add Companion'}</button>
-                {editingId && <button type="button" className="btn btn-outline" onClick={resetForm} style={{ flex: 1, fontSize: '0.9rem', padding: '10px' }}>Cancel</button>}
+                <button
+                  className="btn"
+                  type="submit"
+                  disabled={submitting}
+                  style={{
+                    flex: 1,
+                    fontSize: '0.9rem',
+                    padding: '10px',
+                    opacity: submitting ? 0.7 : 1,
+                    cursor: submitting ? 'not-allowed' : 'pointer'
+                  }}
+                >
+                  {submitting ? 'Saving...' : (editingId ? 'Save Changes' : 'Add Companion')}
+                </button>
+                {editingId && (
+                  <button
+                    type="button"
+                    className="btn btn-outline"
+                    onClick={resetForm}
+                    disabled={submitting}
+                    style={{ flex: 1, fontSize: '0.9rem', padding: '10px' }}
+                  >
+                    Cancel
+                  </button>
+                )}
               </div>
             </form>
           </div>
