@@ -370,13 +370,19 @@ nav.navbar {
   padding: 16px;
   box-shadow: var(--shadow-md);
   border: 1px solid rgba(216, 93, 138, 0.04);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.product-detail img {
+.product-image-container img {
   width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  border-radius: var(--radius);
+  height: 100%;
+  object-fit: contain;
+  border-radius: calc(var(--radius) - 6px);
+  display: block;
 }
 
 .product-detail .info {
