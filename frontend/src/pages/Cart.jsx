@@ -21,7 +21,8 @@ export default function Cart() {
       <h1 style={{ marginBottom: '8px' }}>Your Shopping Bag</h1>
       <p style={{ color: 'var(--text-light)' }}>Review your items before proceeding to payment.</p>
       
-      <div className="cart-items-wrapper">
+      {/* Desktop Cart Table (Hidden on Mobile) */}
+      <div className="cart-items-wrapper cart-desktop-view">
         <table className="cart-table">
           <thead>
             <tr>
@@ -66,6 +67,44 @@ export default function Cart() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile Cart Cards (Visible only on Mobile) */}
+      <div className="cart-mobile-view">
+        {items.map(item => (
+          <div key={item.id} className="cart-mobile-card">
+            <img className="cart-mobile-img" src={getImageUrl(item.image)} alt={item.name} />
+            <div className="cart-mobile-content">
+              <div className="cart-mobile-header">
+                <div>
+                  <h4 className="cart-mobile-title">{item.name}</h4>
+                  <div className="cart-mobile-unit-price">Rs. {item.price.toFixed(2)} each</div>
+                </div>
+                <button
+                  className="cart-mobile-remove-btn"
+                  onClick={() => removeItem(item.id)}
+                  title="Remove item"
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div className="cart-mobile-footer">
+                <div className="qty-control" style={{ marginBottom: 0 }}>
+                  <button onClick={() => updateQty(item.id, item.qty - 1)}>-</button>
+                  <span>{item.qty}</span>
+                  <button onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
+                </div>
+                <div className="cart-mobile-total">
+                  Rs. {(item.price * item.qty).toFixed(2)}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="cart-summary-card">

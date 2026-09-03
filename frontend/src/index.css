@@ -515,6 +515,14 @@ nav.navbar {
   border-color: var(--pink-dark);
 }
 
+.cart-desktop-view {
+  display: block;
+}
+
+.cart-mobile-view {
+  display: none;
+}
+
 .cart-summary-card {
   background-color: var(--white);
   border-radius: var(--radius);
@@ -1086,6 +1094,102 @@ footer {
 
   .promo-delivery-section h2 {
     font-size: 2.2rem !important;
+  }
+
+  .cart-desktop-view {
+    display: none !important;
+  }
+
+  .cart-mobile-view {
+    display: flex !important;
+    flex-direction: column;
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .cart-mobile-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 14px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(216, 93, 138, 0.08);
+  }
+
+  .cart-mobile-img {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    background-color: var(--pink-soft);
+    flex-shrink: 0;
+  }
+
+  .cart-mobile-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .cart-mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .cart-mobile-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .cart-mobile-unit-price {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  .cart-mobile-remove-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: var(--transition);
+    flex-shrink: 0;
+  }
+
+  .cart-mobile-remove-btn:hover {
+    color: #e53935;
+    background-color: #ffebee;
+  }
+
+  .cart-mobile-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cart-mobile-total {
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    color: var(--pink-dark);
+  }
+
+  .cart-summary-card {
+    padding: 24px 20px;
   }
 
   .order-details-grid {
