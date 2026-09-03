@@ -65,11 +65,7 @@ export default function Home() {
           Featured products
         </h2>
         
-        <div className="products-grid" style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: '30px'
-        }}>
+        <div className="products-grid">
           {featured.map(p => (
             <div key={p.id} className="product-card-shopify">
               <div className="image-wrapper" style={{

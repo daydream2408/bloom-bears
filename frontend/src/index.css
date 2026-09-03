@@ -242,8 +242,8 @@ nav.navbar {
   margin: 0 auto 36px;
 }
 
-/* Product Catalog Grid */
-.grid {
+/* Product Catalog Grid & Featured Products Grid */
+.grid, .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 36px 28px;
@@ -999,6 +999,95 @@ footer {
 }
 
 @media (max-width: 768px) {
+  .grid, .products-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px 12px !important;
+    padding: 16px 0 40px !important;
+  }
+  
+  .card {
+    border-radius: 12px;
+  }
+
+  .card-body {
+    padding: 12px 10px 14px;
+  }
+
+  .card-body h3 {
+    font-size: 0.92rem;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-body .price {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+  }
+
+  .card-body .btn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    border-radius: 20px;
+  }
+
+  .product-card-shopify .image-wrapper {
+    border-radius: 14px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .product-card-shopify h3 {
+    font-size: 0.92rem !important;
+  }
+
+  .product-card-shopify .quick-add-btn {
+    width: 34px !important;
+    height: 34px !important;
+    bottom: 10px !important;
+    right: 10px !important;
+  }
+
+  .product-card-shopify .quick-add-btn svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .hero-text-section {
+    padding: 40px 0 24px !important;
+  }
+
+  .hero-text-section h1 {
+    font-size: 2.8rem !important;
+  }
+
+  .hero-banner-image-section {
+    margin-bottom: 40px !important;
+  }
+
+  .featured-section {
+    margin-bottom: 40px !important;
+  }
+
+  .featured-section h2 {
+    font-size: 1.8rem !important;
+    margin-bottom: 20px !important;
+  }
+
+  .promo-delivery-section {
+    grid-template-columns: 1fr !important;
+    padding: 30px 20px !important;
+    gap: 24px !important;
+  }
+
+  .promo-delivery-section h2 {
+    font-size: 2.2rem !important;
+  }
+
   .order-details-grid {
     grid-template-columns: 1fr !important;
     gap: 24px !important;
@@ -1016,5 +1105,43 @@ footer {
     justify-content: center !important;
   }
 }
+
+@media (max-width: 480px) {
+  .grid, .products-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px 8px !important;
+    padding: 12px 0 30px !important;
+  }
+
+  .card-body {
+    padding: 10px 8px 12px;
+  }
+
+  .card-body h3 {
+    font-size: 0.85rem;
+  }
+
+  .card-body .price {
+    font-size: 0.88rem;
+    margin-bottom: 8px;
+  }
+
+  .card-body .btn {
+    padding: 7px 6px;
+    font-size: 0.74rem;
+  }
+
+  .filter-container {
+    gap: 8px;
+    margin-top: 14px;
+    padding-bottom: 4px;
+  }
+
+  .filter-pill {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}
+
 
 
