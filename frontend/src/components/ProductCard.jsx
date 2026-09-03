@@ -6,7 +6,7 @@ export default function ProductCard({ product }) {
   const { addItem } = useCart();
   return (
     <div className="card">
-      <Link to={`/product/${product.id}`}>
+      <Link to={`/product/${product.id}`} className="card-image-wrapper">
         <img src={getImageUrl(product.image)} alt={product.name} onError={(e) => e.target.style.opacity = 0.3} />
       </Link>
       <div className="card-body">
