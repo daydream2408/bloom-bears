@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="bloomGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B8B" />
+      <stop offset="100%" stop-color="#FF8E53" />
+    </linearGradient>
+    <linearGradient id="petalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFA8C5" />
+      <stop offset="100%" stop-color="#FF6584" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#FF6B8B" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background Circle -->
+  <circle cx="50" cy="50" r="46" fill="url(#bloomGrad)" filter="url(#glow)"/>
+
+  <!-- Inner Soft Base -->
+  <circle cx="50" cy="50" r="43" fill="#FFF5F7" opacity="0.95"/>
+
+  <!-- Bear Ears -->
+  <!-- Left Ear -->
+  <circle cx="30" cy="32" r="14" fill="url(#bloomGrad)"/>
+  <circle cx="30" cy="32" r="8" fill="#FFCCD8"/>
+  <!-- Right Ear -->
+  <circle cx="70" cy="32" r="14" fill="url(#bloomGrad)"/>
+  <circle cx="70" cy="32" r="8" fill="#FFCCD8"/>
+
+  <!-- Bear Head -->
+  <circle cx="50" cy="54" r="28" fill="url(#bloomGrad)"/>
+
+  <!-- Bear Snout -->
+  <ellipse cx="50" cy="58" rx="14" ry="11" fill="#FFF0F3"/>
+
+  <!-- Bear Nose -->
+  <path d="M47 53 Q50 51 53 53 Q50 57 47 53 Z" fill="#6A2E35"/>
+
+  <!-- Bear Mouth -->
+  <path d="M47 57 Q50 60 53 57" stroke="#6A2E35" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+
+  <!-- Bear Eyes -->
+  <circle cx="41" cy="48" r="3.2" fill="#3D1D24"/>
+  <circle cx="42" cy="46.8" r="1.2" fill="#FFFFFF"/>
+  
+  <circle cx="59" cy="48" r="3.2" fill="#3D1D24"/>
+  <circle cx="60" cy="46.8" r="1.2" fill="#FFFFFF"/>
+
+  <!-- Cheeks Blush -->
+  <circle cx="36" cy="55" r="4" fill="#FF7B95" opacity="0.6"/>
+  <circle cx="64" cy="55" r="4" fill="#FF7B95" opacity="0.6"/>
+
+  <!-- Little Blossom Flower on Right Ear -->
+  <g transform="translate(68, 22) scale(0.6)">
+    <!-- Flower Petals -->
+    <circle cx="0" cy="-6" r="5" fill="url(#petalGrad)"/>
+    <circle cx="6" cy="-2" r="5" fill="url(#petalGrad)"/>
+    <circle cx="4" cy="5" r="5" fill="url(#petalGrad)"/>
+    <circle cx="-4" cy="5" r="5" fill="url(#petalGrad)"/>
+    <circle cx="-6" cy="-2" r="5" fill="url(#petalGrad)"/>
+    <!-- Flower Center -->
+    <circle cx="0" cy="0" r="3.5" fill="#FFEAA7"/>
+  </g>
+</svg>
